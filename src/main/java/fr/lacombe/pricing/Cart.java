@@ -1,6 +1,7 @@
 package fr.lacombe.pricing;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public class Cart {
     private final Collection<ItemReference> itemReferences;
@@ -15,5 +16,9 @@ public class Cart {
 
     public boolean isEmpty() {
         return itemReferences.isEmpty();
+    }
+
+    public Optional<ItemReference> getFirst() {
+        return itemReferences.stream().findFirst();
     }
 }
