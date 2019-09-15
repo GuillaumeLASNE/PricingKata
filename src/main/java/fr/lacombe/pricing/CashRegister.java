@@ -10,10 +10,9 @@ public class CashRegister {
     }
 
     public Price price(Cart cart) {
-        if (cart.isEmpty()) {
-            return Price.ZERO;
-        } else {
-            return itemPrices.get(cart.getFirst().get());
+        for (ItemReference itemReference : cart) {
+            return itemPrices.get(itemReference);
         }
+        return Price.ZERO;
     }
 }
