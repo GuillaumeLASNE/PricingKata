@@ -2,7 +2,9 @@ package fr.lacombe.pricing;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
@@ -49,5 +51,20 @@ class CashRegisterTest {
         Price price = cashRegister.price(Cart.of(singletonList(appleReference)));
 
         assertThat(price).isEqualTo(Price.of(1, EURO));
+    }
+
+    @Test
+    void price_of_a_cart_containing_two_items_is_the_sum_of_their_price() {
+        Map<ItemReference, Price> itemPrices = new HashMap<>();
+        ItemReference appleReference = ItemReference.of("REFERENCE_OF_AN_APPLE");
+        itemPrices.put(appleReference, Price.of(1, EURO));
+        ItemReference ciderBottleReference = ItemReference.of("REFERENCE_OF_A_CIDER_BOTTLE");
+        itemPrices.put(ciderBottleReference, Price.of(2.99, EURO));
+
+        CashRegister cashRegister = new CashRegister(itemPrices);
+
+        Price price = cashRegister.price(Cart.of(Arrays.asList(appleReference, ciderBottleReference)));
+
+        assertThat(price).isEqualTo(Price.of(3.99, EURO));
     }
 }

@@ -10,9 +10,10 @@ public class CashRegister {
     }
 
     public Price price(Cart cart) {
+        Price priceOfTheCart = Price.ZERO;
         for (ItemReference itemReference : cart) {
-            return itemPrices.get(itemReference);
+            priceOfTheCart = priceOfTheCart.add(itemPrices.get(itemReference));
         }
-        return Price.ZERO;
+        return priceOfTheCart;
     }
 }

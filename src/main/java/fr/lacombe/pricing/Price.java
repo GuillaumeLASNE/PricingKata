@@ -37,4 +37,18 @@ public final class Price {
     public int hashCode() {
         return Objects.hash(price, currency);
     }
+
+    public Price add(Price augend) {
+        final BigDecimal sumOfPrices = this.price.add(augend.price);
+        final Currency currency = ZERO.equals(this) ? augend.currency : this.currency;
+        return new Price(sumOfPrices, currency);
+    }
+
+    @Override
+    public String toString() {
+        return "Price{" +
+                "price=" + price +
+                ", currency=" + currency +
+                '}';
+    }
 }
